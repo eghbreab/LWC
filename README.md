@@ -1,10 +1,27 @@
-# Salesforce DX Project: Next Steps
+# Consult Calendar View (LWC)
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+A custom Lightning Web Component (LWC) that displays a weekly view of **Consult Requests** and allows navigation between weeks.
 
-## How Do You Plan to Deploy Your Changes?
+## 🚀 Overview
+This component retrieves and displays consult request records from Salesforce using the `getListUi` wire adapter.  
+It supports:
+- Viewing consults for the current week
+- Navigating to previous or next weeks
+- Opening a consult record directly from the calendar view
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+## 🧩 Key Features
+- Displays consult requests from:
+  - `CR_Phone_This_Week` list view
+  - `CR_Phone` list view
+- Groups consults by weekday (Mon–Fri)
+- Shows callback time, consultant, specialty, and PCP name
+- Supports “Previous Week,” “Next Week,” and “Current Week” navigation
+
+## 🛠️ Technical Details
+- Uses `lightning/uiListApi` for data retrieval
+- Uses `NavigationMixin` for record page navigation
+- Automatically sorts records by creation date
+- Filters and formats callback times for display
 
 ## Configure Your Salesforce DX Project
 
