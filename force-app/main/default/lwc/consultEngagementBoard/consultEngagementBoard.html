@@ -1,0 +1,89 @@
+<template>
+    <lightning-card title="Consult Request Calendar" icon-name="standard:event">
+        <!-- Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center slds-p-around_large">
+                <lightning-spinner alternative-text="Loading data..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={error}>
+            <div class="slds-notify slds-notify_alert slds-theme_error slds-m-around_small">
+                <lightning-icon icon-name="utility:error" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <span>{error}</span>
+            </div>
+        </template>
+
+        <!-- Header -->
+        <div class="slds-grid slds-grid_align-spread slds-p-around_medium slds-border_bottom">
+            <div>
+                <h2 class="slds-text-heading_medium">Consults Calendar</h2>
+                <p class="slds-text-body_small slds-text-color_weak">
+                    View scheduled consult requests by week.
+                </p>
+            </div>
+            <!-- <div class="slds-button-group">
+                <lightning-button label="Previous Week" variant="neutral" onclick={handlePrevWeek}></lightning-button>
+                <lightning-button label="Current Week" variant="brand-outline" onclick={handleCurrentWeek}></lightning-button>
+                <lightning-button label="Next Week" variant="neutral" onclick={handleNextWeek}></lightning-button>
+            </div> -->
+
+            <div class="slds-button-group">
+                <lightning-button label="Previous Week" variant="neutral" onclick={handlePrevWeek} class="slds-m-right_small"></lightning-button>
+                <lightning-button label="Current Week" variant="brand-outline" onclick={handleCurrentWeek} class="slds-m-right_small"></lightning-button>
+                <lightning-button label="Next Week" variant="neutral" onclick={handleNextWeek}></lightning-button>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-grid slds-p-around_medium">
+            <template if:true={calendarDays}>
+                <template for:each={calendarDays} for:item="day">
+                    <div key={day.dateKey} class="calendar-day">
+                        <div class="calendar-day-header">
+                            <div class="slds-text-title_bold">{day.dayName}</div>
+                            <div class="slds-text-body_small slds-text-color_weak">{day.formattedDate}</div>
+                        </div>
+
+                        <template if:true={day.appointments.length}>
+                            <template for:each={day.appointments} for:item="appt">
+                                <article key={appt.id}
+                                         class="slds-box slds-theme_default slds-m-around_x-small calendar-event"
+                                         data-id={appt.id}
+                                         onclick={handleAppointmentClick}>
+                                    <h3 class="event-title slds-truncate slds-m-bottom_small">
+                                        <a href="javascript:void(0)" data-id={appt.id} onclick={handleAppointmentClick}>
+                                            {appt.name}
+                                        </a>
+                                    </h3>
+
+                                    <div class="event-details">
+                                        <div><strong>Preference :</strong> {appt.specialty}</div>
+                                        <div><strong>Modality :</strong> {appt.modality}</div>
+                                        <div><strong>Consultant :</strong> {appt.consultant}</div>
+                                        <div><strong>PCP :</strong> {appt.pcpName}</div>
+                                        <div><strong>Callback Number :</strong> {appt.callbackNumber}</div>
+                                        <div><strong>Callback Time :</strong> {appt.formattedTime}</div>
+                                    </div>
+                                </article>
+                            </template>
+                        </template>
+
+                        <template if:false={day.appointments.length}>
+                            <div class="slds-text-align_center slds-text-color_weak slds-p-vertical_medium">
+                                No consults
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={calendarDays}>
+                <div class="slds-p-around_large slds-text-align_center">
+                    <p class="slds-text-color_weak">No calendar data available.</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

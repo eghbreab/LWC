@@ -1,0 +1,76 @@
+/* === Layout === */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.calendar-day {
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.5rem;
+    box-shadow: var(--lwc-shadowElevationSmall, 0 1px 2px rgba(0, 0, 0, 0.1));
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+}
+
+.calendar-day-header {
+    background-color: #f3f6f9;
+    border-bottom: 1px solid #d8dde6;
+    padding: 0.6rem;
+    text-align: center;
+}
+
+/* === Appointment Card === */
+.calendar-event {
+    cursor: pointer;
+    border-left: 4px solid var(--lwc-colorBrand, #1b96ff);
+    border-radius: 0.35rem;
+    padding: 0.75rem 0.9rem;
+    background-color: #ffffff;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calendar-event:hover {
+    background-color: #f4f6f9;
+    transform: translateY(-2px);
+    box-shadow: var(--lwc-shadowElevationMedium, 0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+/* === Event Title === */
+.event-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #032d60;
+}
+
+/* === Event Details === */
+.event-details {
+    font-size: 0.9rem;
+    color: #2e2e2e;
+    line-height: 1.4;
+}
+
+.event-details div {
+    margin-bottom: 0.25rem;
+}
+
+.event-details strong {
+    font-weight: 600;
+    color: #032d60;
+    margin-right: 0.25rem;
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 1024px) {
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+}
